@@ -1,5 +1,5 @@
 import {BaseThunkAPI} from "@reduxjs/toolkit/dist/createAsyncThunk"
-import { appActions } from "./../app/app.slice"
+import { appActions } from "app/app.slice"
 import {AppDispatch, AppRootStateType} from "app/store"
 import {AxiosError, isAxiosError} from "axios"
 

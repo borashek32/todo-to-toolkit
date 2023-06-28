@@ -1,5 +1,6 @@
-import {instance, ResponseType} from "api/todolists-api"
+import {ResponseType} from "common/types/common.types"
 import {LoginParamsType} from "features/auth/auth.types"
+import {instance} from "common/api/common.api"
 
 export const authAPI = {
   login(data: LoginParamsType) {

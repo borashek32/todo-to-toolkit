@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react"
 import "./App.css"
 import {TodolistsList} from "features/todolists/TodolistsList"
-import {ErrorSnackbar} from "components/ErrorSnackbar/ErrorSnackbar"
+import {ErrorSnackbar} from "common/components/ErrorSnackbar/ErrorSnackbar"
 import {useDispatch} from "react-redux"
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import {Login} from "features/auth/Login"
@@ -18,7 +18,7 @@ import {
 import {Menu} from "@mui/icons-material"
 import {authThunks} from "features/auth/auth.slice"
 import {appThunks} from "app/app.slice"
-import {useAppSelector} from "hooks/use-app-selector"
+import {useAppSelector} from "common/hooks/use-app-selector"
 import {selectAppIsInitialized, selectStatus} from "app/app.selectors"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
 

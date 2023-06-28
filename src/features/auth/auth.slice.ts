@@ -2,8 +2,8 @@ import {LoginParamsType} from "features/auth/auth.types"
 import {authAPI} from "features/auth/auth.api"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {appActions} from "app/app.slice"
-import {createAppAsyncThunk} from "utils/create-app-async-thunk"
-import {thunkTryCatch} from "utils/thunk-try-catch"
+import {createAppAsyncThunk} from "common/utils/create-app-async-thunk"
+import {thunkTryCatch} from "common/utils/thunk-try-catch"
 
 
 const slice = createSlice({
@@ -45,7 +45,7 @@ const logout = createAppAsyncThunk<void>(
   })
 
 export const authActions = slice.actions
-export const authSlice = slice.reducer
+export const authReducer = slice.reducer
 export const authThunks = {
   login,
   logout
