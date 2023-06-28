@@ -1,9 +1,9 @@
-import {Dispatch} from "redux"
-import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
 import {LoginParamsType} from "features/auth/auth.types"
 import {authAPI} from "features/auth/auth.api"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {appActions} from "app/app.slice"
+import {createAppAsyncThunk} from "utils/create-app-async-thunk"
+import {thunkTryCatch} from "utils/thunk-try-catch"
 
 
 const slice = createSlice({
@@ -18,41 +18,31 @@ const slice = createSlice({
   }
 })
 
-const login =
-  (data: LoginParamsType) => (dispatch: Dispatch) => {
-    dispatch(appActions.setAppStatus({ status: "loading" }))
-    authAPI
-      .login(data)
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
-          dispatch(appActions.setAppStatus({ status: "succeeded" }))
-        } else {
-          handleServerAppError(res.data, dispatch)
-        }
-      })
-      .catch((error) => {
-        handleServerNetworkError(error, dispatch)
-      })
-  }
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, LoginParamsType>(
+  'auth/login',
+  async (arg, thunkAPI) => {
+    return thunkTryCatch(thunkAPI, async () => {
+      const { dispatch } = thunkAPI
+      const res = await authAPI.login(arg)
+      if (res.data.resultCode === 0) {
+        dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
+        dispatch(appActions.setAppStatus({ status: "succeeded" }))
+      }
+    }, false)
+  })
 
-const logout = () => (dispatch: Dispatch) => {
-  dispatch(appActions.setAppStatus({ status: "loading" }))
-  authAPI
-    .logout()
-    .then((res) => {
+const logout = createAppAsyncThunk<void>(
+  'auth/logout',
+  async (arg, thunkAPI) => {
+    return thunkTryCatch(thunkAPI, async () => {
+      const { dispatch } = thunkAPI
+      const res = await authAPI.logout()
       if (res.data.resultCode === 0) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }))
         dispatch(appActions.setAppStatus({ status: "succeeded" }))
-      } else {
-        handleServerAppError(res.data, dispatch)
       }
-    })
-    .catch((error) => {
-      handleServerNetworkError(error, dispatch)
-    })
-}
-
+    }, false)
+  })
 
 export const authActions = slice.actions
 export const authSlice = slice.reducer

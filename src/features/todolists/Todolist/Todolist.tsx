@@ -4,7 +4,7 @@ import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
 import { Task } from "./Task/Task";
 import { TaskStatuses, TaskType } from "../../../api/todolists-api";
 import { FilterValuesType, TodolistDomainType } from "../todolists-reducer";
-import { fetchTasksTC } from "../tasks-reducer";
+import { fetchTasksTC } from "features/todolists/Todolist/tasks-reducer";
 import { useAppDispatch } from "hooks/use-app-dispatch";
 import { Button, IconButton } from "@mui/material";
 import { Delete } from "@mui/icons-material";
