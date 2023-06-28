@@ -3,7 +3,7 @@ import { useFormik } from "formik"
 import { useSelector } from "react-redux"
 import { AppRootStateType } from "app/store"
 import { Navigate } from "react-router-dom"
-import { useAppDispatch } from "hooks/useAppDispatch"
+import { useAppDispatch } from "hooks/use-app-dispatch"
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField } from "@mui/material"
 import {authThunks} from "features/auth/auth.slice"
 

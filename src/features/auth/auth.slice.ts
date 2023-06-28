@@ -1,9 +1,9 @@
-import { Dispatch } from "redux"
-import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType } from "app/app-reducer"
-import { handleServerAppError, handleServerNetworkError } from "utils/error-utils"
+import {Dispatch} from "redux"
+import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
 import {LoginParamsType} from "features/auth/auth.types"
 import {authAPI} from "features/auth/auth.api"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {appActions} from "app/app.slice"
 
 
 const slice = createSlice({
@@ -20,13 +20,13 @@ const slice = createSlice({
 
 const login =
   (data: LoginParamsType) => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(appActions.setAppStatus({ status: "loading" }))
     authAPI
       .login(data)
       .then((res) => {
         if (res.data.resultCode === 0) {
           dispatch(authActions.setIsLoggedIn({ isLoggedIn: true }))
-          dispatch(setAppStatusAC("succeeded"))
+          dispatch(appActions.setAppStatus({ status: "succeeded" }))
         } else {
           handleServerAppError(res.data, dispatch)
         }
@@ -37,13 +37,13 @@ const login =
   }
 
 const logout = () => (dispatch: Dispatch) => {
-  dispatch(setAppStatusAC("loading"))
+  dispatch(appActions.setAppStatus({ status: "loading" }))
   authAPI
     .logout()
     .then((res) => {
       if (res.data.resultCode === 0) {
         dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }))
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(appActions.setAppStatus({ status: "succeeded" }))
       } else {
         handleServerAppError(res.data, dispatch)
       }

@@ -16,7 +16,7 @@ import { Grid, Paper } from "@mui/material";
 import { AddItemForm } from "../../components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import { Navigate } from "react-router-dom";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppDispatch } from "hooks/use-app-dispatch";
 
 type PropsType = {
   demo?: boolean;
