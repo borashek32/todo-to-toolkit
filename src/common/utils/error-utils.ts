@@ -7,10 +7,13 @@ export const handleServerAppError = <D>(
   dispatch: Dispatch
 ) => {
   if (data.messages.length) {
+    console.log('data.messages.length')
     dispatch(appActions.setAppError({ error: data.messages[0] }))
   } else {
+    console.log('error: "Some error occurred"')
     dispatch(appActions.setAppError({ error: "Some error occurred" }))
   }
+  console.log('status: "failed"')
   dispatch(appActions.setAppStatus({ status: "failed" }))
 }
 
